@@ -20,4 +20,5 @@ RUN git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT} \
  && pyenv global 3.12.3 \
  && curl -LsSf https://astral.sh/uv/install.sh | sh
 
+RUN git config --system --add safe.directory /var/jenkins_home/workspace
 USER jenkins
