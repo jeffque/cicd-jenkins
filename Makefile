@@ -2,6 +2,7 @@ IMAGE ?= sample-python-ci
 WORKDIR ?= /app
 VENV ?= .venv
 PYTHON ?= $(VENV)/bin/python
+REGISTRY_SERVER ?= registry:5000
 
 build:
 	@if [ ! -d "$(VENV)" ]; then python -m venv "$(VENV)"; fi
@@ -11,6 +12,8 @@ build:
 
 build-docker: build
 	docker build -t $(IMAGE) .
+	docker tag $(IMAGE) $(REGISTRY_SERVER)/$(IMAGE)
+	docker push $(REGISTRY_SERVER)/$(IMAGE)
 
 test: build
 	$(PYTHON) -m pytest --maxfail=1 --disable-warnings --cov=app --cov-report=term-missing --cov-report=xml
