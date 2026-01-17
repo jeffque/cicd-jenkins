@@ -17,7 +17,6 @@ pipeline {
       steps {
         sh 'id'
         sh 'echo "DOCKER_HOST=${DOCKER_HOST:-<unset>}"'
-        sh 'ls -l /run/user/1000/docker.sock || true'
         sh 'docker version'
       }
     }
