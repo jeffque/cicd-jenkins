@@ -1,0 +1,22 @@
+services:
+  dind:
+    image: "docker:29-dind"
+    container_name: dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ''
+      DOCKER_HOST: tcp://dind:2375
+    entrypoint:
+      - dockerd
+      - --host=tcp://0.0.0.0:2375
+      - --insecure-registry
+      - registry:5000
+    networks:
+      docker-net:
+        aliases:
+          - dind
+      docker-registry-net: {}
+networks:
+  docker-net: {}
+  docker-registry-net:
+    external: true

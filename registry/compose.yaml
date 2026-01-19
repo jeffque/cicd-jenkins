@@ -6,10 +6,12 @@ services:
       - 5000:5000
     restart: unless-stopped
     networks:
-      docker-net:
+      docker-registry-net:
         aliases:
           - registry
       default: {}
+    volumes:
+      - ../registry-repo:/var/lib/registry
 networks:
-  docker-net:
-    external: true
+  docker-registry-net:
+    name: docker-registry-net

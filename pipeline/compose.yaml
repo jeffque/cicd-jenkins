@@ -1,6 +1,6 @@
 services:
   jenkins:
-    build: ./jenkins
+    build: ../jenkins
     container_name: jenkins-ci
     ports:
       - "8080:8080"
@@ -9,7 +9,7 @@ services:
       JENKINS_HOME_HOST: /var/jenkins_home
       TZ: Etc/GMT-3
     volumes:
-      - ./jenkins_home:/var/jenkins_home
+      - ../jenkins_home:/var/jenkins_home
     networks:
       - default
       - docker-net
@@ -32,6 +32,8 @@ services:
       docker-net:
         aliases:
           - dind
+      docker-registry-net: {}
 networks:
-  docker-net:
-    name: docker-net
+  docker-net: {}
+  docker-registry-net:
+    external: true
